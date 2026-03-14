@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Effective Communication - DepEd Learning Module</title>
+    <style>
+        :root {
+            --deped-purple: #6a3093;
+            --deped-violet: #9d50bb;
+            --accent-blue: #3498db;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #6a3093 0%, #a044ff 100%);
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .main-container {
+            width: 95vw;
+            height: 90vh;
+            background: rgba(106, 48, 147, 0.95);
+            border: 6px solid #ffffff33;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        /* --- PROFESSIONAL BANNER --- */
+        .deped-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 14px 14px 0 0;
+        }
+
+        .logo-section { display: flex; align-items: center; gap: 20px; }
+        .deped-logo { height: 65px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3)); }
+        
+        .banner-text-title {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 2.5rem;
+            margin: 0;
+            line-height: 1;
+            text-shadow: 3px 3px 0px #3a1c71;
+        }
+
+        .banner-subtitle {
+            font-size: 0.85rem;
+            background: white;
+            color: var(--deped-purple);
+            padding: 2px 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .header-icons { display: flex; gap: 12px; }
+        .chat-bubble {
+            width: 45px; height: 45px;
+            background: var(--accent-blue);
+            border-radius: 50% 50% 0 50%;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .chat-bubble::after { content: '...'; color: white; font-weight: bold; margin-bottom: 5px; }
+
+        /* --- LAYOUT --- */
+        .view-wrapper { display: flex; flex: 1; padding: 25px; gap: 25px; overflow: hidden; }
+
+        .sidebar { width: 250px; display: flex; flex-direction: column; gap: 15px; }
+        .q-btn, .nav-btn {
+            background: var(--deped-violet);
+            border: 2px solid white;
+            border-radius: 12px;
+            color: white;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .q-btn:hover, .q-btn.active { background: white; color: var(--deped-purple); }
+
+        .content-panel {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* --- LESSON PROPER STYLES --- */
+        .lesson-container { background: white; color: #333; padding: 30px; border-radius: 10px; }
+        .back-btn {
+            float: right;
+            background: #e74c3c;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- QUIZ & RESULTS --- */
+        .quiz-input { width: 100%; padding: 10px; margin: 10px 0 20px 0; border: 1px solid #ccc; border-radius: 5px; }
+        .results-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; }
+        .results-table th, .results-table td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        .results-table th { background: var(--deped-purple); color: white; }
+        .correct { color: green; font-weight: bold; }
+        .incorrect { color: red; font-weight: bold; }
+
+        .footer-info { margin-top: auto; font-size: 0.75rem; color: #eee; line-height: 1.4; border-top: 1px solid #ffffff44; padding-top: 10px; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="deped-banner">
+        <div class="logo-section">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Department_of_Education_Philippines_Logo.png" alt="DepEd" class="deped-logo">
+            <div>
+                <h1 class="banner-text-title">EFFECTIVE</h1>
+                <span class="banner-subtitle">COMMUNICATION</span>
+            </div>
+        </div>
+        <div class="header-icons">
+            <div class="chat-bubble" style="opacity:0.6; transform:scale(0.8)"></div>
+            <div class="chat-bubble"></div>
+        </div>
+    </div>
+
+    <div class="view-wrapper">
+        <div class="sidebar" id="sidebar-main">
+            <button class="q-btn active" onclick="showQuarter(1)">QUARTER 1</button>
+            <button class="q-btn" onclick="showQuarter(2)">QUARTER 2</button>
+            <button class="q-btn" onclick="showQuarter(3)">QUARTER 3</button>
+            <button class="q-btn" onclick="showQuarter(4)">QUARTER 4</button>
+            
+            <div class="footer-info">
+                <strong>Marjorie M. Jusay, PHD (C)</strong><br>
+                Mariano Ponce National High School<br>
+                0931-700-0681 | marjorie.jusay@deped.gov.ph
+            </div>
+        </div>
+
+        <div class="sidebar hidden" id="sidebar-lesson">
+            <div id="active-comp-display" style="font-weight: bold; font-size: 0.9rem; margin-bottom: 15px; color: #ffaf7b;"></div>
+            <button class="nav-btn" onclick="showTab('learn')">LET'S LEARN</button>
+            <button class="nav-btn" onclick="showTab('practice')">LET'S PRACTICE</button>
+            <button class="nav-btn">LET'S ENRICH</button>
+            <button class="nav-btn">LET'S THINK</button>
+            <button class="nav-btn">LET'S PERFORM</button>
+            <button class="nav-btn">LET'S ASSESS</button>
+            <button class="nav-btn" style="background:#444" onclick="handleBack()">◀ BACK</button>
+        </div>
+
+        <div class="content-panel" id="main-content">
+            <div id="quarter-view">
+                <h2 id="q-header" style="text-align:center; background: var(--deped-violet); padding: 10px; border-radius: 10px;">QUARTER 1 LEARNING COMPETENCIES</h2>
+                <ul id="comp-list" style="list-style: none; padding: 0; font-size: 1.2rem;"></ul>
+            </div>
+
+            <div id="lesson-view" class="hidden">
+                <div class="lesson-container" id="lesson-body"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const competencies = {
+        1: ["Interpreting meaning shaped by audience, purpose, and context", "Using politeness markers and conversation management", "Compose well-structured personal/interpersonal communication", "Engage in intrapersonal communication (reflection/journaling)"],
+        2: ["Recognizing attitudes/biases in public communication", "Intercultural sensitivity and inclusive language", "Compose public-facing texts (blogs, advocacy, reviews)", "Constructing arguments for social/shared values"],
+        3: ["Interpreting academic/technical texts & data", "Constructing academic/technical reports & summaries", "Using ethical considerations (AI attribution, citation)", "Collaborative academic tasks (projects, proposals)"],
+        4: ["Workplace correspondence (emails, reports, minutes)", "Professional profiles & resumes", "Constructive participation in meetings/negotiations", "Emotional regulation & cultural sensitivity in work"]
+    };
+
+    const quizData = [
+        { id: 1, type: "ID", q: "Literal act of saying something.", ans: "locutionary act" },
+        { id: 2, type: "ID", q: "Specific group of people to whom the message is intended.", ans: "audience" },
+        { id: 3, type: "ID", q: "The speaker's social intent or action performed.", ans: "illocutionary act" },
+        { id: 4, type: "ID", q: "Two primary scholars associated with Speech Act Theory.", ans: "austin and searle" },
+        { id: 5, type: "ID", q: "Physical, social, and cultural setting where communication occurs.", ans: "context" },
+        { id: 6, type: "TF", q: "The context of a conversation only refers to the physical location.", ans: "f" },
+        { id: 7, type: "TF", q: "The intended effect on the listener is called the Perlocutionary Act.", ans: "t" },
+        { id: 8, type: "TF", q: "A noisy environment is an example of physical noise.", ans: "t" },
+        { id: 9, type: "TF", q: "Regulation or control is used to manage behavior.", ans: "t" },
+        { id: 10, type: "TF", q: "Changing audience requires you to adjust your language register.", ans: "t" }
+    ];
+
+    let session = { userName: "", startTime: null, backClicks: 0, isFinished: false };
+
+    function showQuarter(q) {
+        document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        document.getElementById('q-header').innerText = `QUARTER ${q} LEARNING COMPETENCIES`;
+        const list = document.getElementById('comp-list');
+        list.innerHTML = "";
+        competencies[q].forEach(c => {
+            const li = document.createElement('li');
+            li.style.cssText = "padding: 15px; border-bottom: 1px solid #ffffff22; cursor: pointer;";
+            li.innerText = "• " + c;
+            li.onclick = () => startLesson(c);
+            list.appendChild(li);
+        });
+    }
+
+    function startLesson(title) {
+        if(!session.userName) session.userName = prompt("Enter Student Name:");
+        session.startTime = new Date();
+        session.isFinished = false;
+        
+        document.getElementById('quarter-view').classList.add('hidden');
+        document.getElementById('sidebar-main').classList.add('hidden');
+        document.getElementById('lesson-view').classList.remove('hidden');
+        document.getElementById('sidebar-lesson').classList.remove('hidden');
+        document.getElementById('active-comp-display').innerText = title;
+        showTab('learn');
+    }
+
+    function showTab(tab) {
+        const body = document.getElementById('lesson-body');
+        if(tab === 'learn') {
+            body.innerHTML = `
+                <h2 style="color:var(--deped-purple)">Meaning Beyond Words</h2>
+                <p><strong>Audience:</strong> The listener dictates the register.</p>
+                <p><strong>Purpose:</strong> Every utterance has an intent (Regulation, Motivation, etc.).</p>
+                <p><strong>Context:</strong> The physical and social setting.</p>
+                <hr>
+                <h3>Speech Act Theory</h3>
+                <p>1. <strong>Locutionary:</strong> The literal words.<br>2. <strong>Illocutionary:</strong> The social force/intent.<br>3. <strong>Perlocutionary:</strong> The effect on the listener.</p>
+            `;
+        } else if(tab === 'practice') {
+            let html = `<h2 style="color:var(--deped-purple)">LET'S PRACTICE</h2>`;
+            quizData.forEach((item, i) => {
+                if(i === 0) html += `<h4>A. Identification</h4>`;
+                if(i === 5) html += `<h4>B. True or False (T/F)</h4>`;
+                html += `<p>${item.id}. ${item.q}</p><input type="text" id="ans-${item.id}" class="quiz-input">`;
+            });
+            html += `<button onclick="submitQuiz()" style="background:green; color:white; padding:15px; border:none; width:100%; cursor:pointer;">SUBMIT</button>`;
+            body.innerHTML = html;
+        }
+    }
+
+    function submitQuiz() {
+        session.isFinished = true;
+        let score = 0;
+        let rows = "";
+        quizData.forEach(item => {
+            const val = document.getElementById(`ans-${item.id}`).value.trim().toLowerCase();
+            const correct = val.includes(item.ans);
+            if(correct) score++;
+            rows += `<tr><td>${item.id}</td><td>${item.q}</td><td class="${correct?'correct':'incorrect'}">${val}</td><td>${item.ans.toUpperCase()}</td></tr>`;
+        });
+
+        const duration = Math.floor((new Date() - session.startTime) / 1000);
+        document.getElementById('lesson-body').innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3>Results: ${score}/10</h3>
+                <button onclick="downloadCSV(${score}, ${duration})" style="background:var(--accent-blue); color:white; border:none; padding:10px; cursor:pointer;">📥 DOWNLOAD RECORD</button>
+            </div>
+            <table class="results-table"><thead><tr><th>#</th><th>Question</th><th>Your Answer</th><th>Key</th></tr></thead><tbody>${rows}</tbody></table>
+        `;
+    }
+
+    function downloadCSV(score, duration) {
+        let csv = `Student,${session.userName}\nScore,${score}/10\nDuration,${duration}s\nBack Clicks,${session.backClicks}\n\n# ,Question,Answer,Key\n`;
+        quizData.forEach(item => {
+            const val = document.getElementById(`ans-${item.id}`) ? document.getElementById(`ans-${item.id}`).value : "N/A";
+            csv += `${item.id},"${item.q}","${val}","${item.ans.toUpperCase()}"\n`;
+        });
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.setAttribute('href', url);
+        a.setAttribute('download', `${session.userName}_results.csv`);
+        a.click();
+    }
+
+    function handleBack() {
+        if(!session.isFinished) session.backClicks++;
+        document.getElementById('quarter-view').classList.remove('hidden');
+        document.getElementById('sidebar-main').classList.remove('hidden');
+        document.getElementById('lesson-view').classList.add('hidden');
+        document.getElementById('sidebar-lesson').classList.add('hidden');
+    }
+
+    showQuarter(1);
+</script>
+</body>
+</html>
